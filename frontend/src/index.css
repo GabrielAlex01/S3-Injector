@@ -1,0 +1,606 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #000;
+  --bg-card: #0a0a0a;
+  --bg-hover: #111;
+  --border: #222;
+  --text: #ccc;
+  --dim: #555;
+  --white: #fff;
+  --font: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
+html { font-size: 14px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* ─── Header ─────────────────────────────────────── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  font-weight: 700;
+}
+
+/* ─── Status Bar ─────────────────────────────────── */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--dim);
+}
+
+.status-bar.online { color: var(--text); }
+.status-bar.offline { color: var(--dim); }
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--white);
+  animation: pulse 2s infinite;
+}
+
+.offline .dot { background: var(--dim); animation: none; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.sep { opacity: 0.2; }
+
+/* ─── Tabs ───────────────────────────────────────── */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--dim);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.15s;
+}
+
+.tab:first-child { border-radius: 4px 0 0 4px; }
+.tab:last-child { border-radius: 0 4px 4px 0; }
+
+.tab.active {
+  background: var(--white);
+  color: #000;
+  border-color: var(--white);
+  font-weight: 700;
+}
+
+.tab:not(.active):hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+/* ─── Panels ─────────────────────────────────────── */
+.panel { margin-bottom: 1.5rem; }
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+/* ─── Trigger Panel ──────────────────────────────── */
+.payload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.payload-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+
+.payload-card:hover:not(:disabled) {
+  border-color: var(--dim);
+  background: var(--bg-hover);
+}
+
+.payload-card:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.payload-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.payload-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.risk-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.risk-low { color: var(--dim); border-color: var(--border); }
+.risk-medium { color: var(--text); border-color: var(--dim); }
+.risk-high { color: var(--white); border-color: var(--white); }
+
+.payload-desc {
+  font-size: 0.7rem;
+  color: var(--dim);
+  line-height: 1.4;
+}
+
+.firing {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--white);
+  animation: pulse 0.8s infinite;
+}
+
+.result-toast {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--dim);
+}
+
+/* ─── Buttons ────────────────────────────────────── */
+.panel-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-export,
+.btn-danger {
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  font-family: var(--font);
+  font-size: 0.7rem;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.15s;
+}
+
+.btn-export {
+  border: 1px solid var(--dim);
+  color: var(--dim);
+}
+
+.btn-danger {
+  border: 1px solid var(--dim);
+  color: var(--dim);
+}
+
+.btn-export:hover:not(:disabled),
+.btn-danger:hover:not(:disabled) {
+  background: var(--white);
+  color: #000;
+  border-color: var(--white);
+}
+
+.btn-export:disabled,
+.btn-danger:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.loot-badge {
+  color: var(--white);
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--dim);
+  font-size: 0.8rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ─── Loot Cards ─────────────────────────────────── */
+.loot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loot-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.loot-card:hover { border-color: var(--dim); }
+
+.loot-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.loot-id {
+  color: var(--white);
+  font-weight: 700;
+}
+
+.loot-time {
+  color: var(--dim);
+  margin-left: auto;
+}
+
+.loot-size {
+  color: var(--dim);
+  font-size: 0.65rem;
+}
+
+.loot-data {
+  margin: 0;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 0.7rem;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 3.5em;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.loot-card.expanded .loot-data {
+  max-height: none;
+}
+
+/* ─── Loot Formatted Data ────────────────────────── */
+.loot-formatted {
+  margin-top: 0.5rem;
+  max-height: 3.5em;
+  overflow: hidden;
+}
+
+.loot-card.expanded .loot-formatted {
+  max-height: none;
+}
+
+.loot-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+}
+
+.loot-table th {
+  text-align: left;
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--dim);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+.loot-table td {
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.loot-table td:last-child {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.loot-kv {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.2rem 0;
+  font-size: 0.7rem;
+}
+
+.loot-k {
+  color: var(--dim);
+  min-width: 80px;
+  font-size: 0.7rem;
+}
+
+.loot-section-title {
+  color: var(--dim);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ─── Payload Editor ─────────────────────────────── */
+.editor-card {
+  background: var(--bg-card);
+  border: 1px solid var(--white);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.editor-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.5rem 0.75rem;
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 0.8rem;
+}
+
+.editor-input:focus,
+.editor-textarea:focus {
+  outline: none;
+  border-color: var(--white);
+}
+
+.editor-textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.5rem 0.75rem;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.btn-upload,
+.btn-save {
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font);
+  font-size: 0.7rem;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.15s;
+}
+
+.btn-upload {
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--dim);
+}
+
+.btn-upload:hover {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.btn-save {
+  background: var(--white);
+  border: 1px solid var(--white);
+  color: #000;
+  font-weight: 700;
+}
+
+.btn-save:hover:not(:disabled) { opacity: 0.8; }
+
+.btn-save:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ─── Custom Payload Cards ───────────────────────── */
+.custom-card {
+  border-color: var(--dim);
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--dim);
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.delete-btn:hover {
+  background: var(--white);
+  color: #000;
+}
+
+.fire-btn {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.7rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.fire-btn:hover:not(:disabled) {
+  background: var(--white);
+  color: #000;
+  border-color: var(--white);
+}
+
+.fire-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Login ─────────────────────────────────────── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.login-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 320px;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.login-logo {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.login-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.6rem 0.75rem;
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 0.8rem;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--white);
+}
+
+.login-btn {
+  padding: 0.6rem;
+  background: var(--white);
+  border: 1px solid var(--white);
+  color: #000;
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: opacity 0.15s;
+}
+
+.login-btn:hover:not(:disabled) { opacity: 0.8; }
+
+.login-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.login-error {
+  font-size: 0.75rem;
+  color: #f44;
+  text-align: center;
+}
