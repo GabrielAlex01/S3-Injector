@@ -125,18 +125,18 @@ pio device monitor
 
 ### Payloads Built-in
 
-| Payload | Risco | Funcao |
-|---------|-------|--------|
-| Recon Basico | low | `whoami`, hostname e `ipconfig /all` |
-| Recon Defesas | medium | Processos de EDR/AV, Zabbix Agent, Defender |
-| Recon Rede | medium | Tabela ARP, conexoes ativas e rotas |
-| Exfil Wi-Fi | high | SSIDs salvos e senhas |
-| Enum Portas | medium | Portas em escuta, scan do gateway e regras de firewall Allow em portas criticas |
-| Diag COM | low | Lista portas COM e dispositivos serial (filtra Bluetooth) |
-| Diminuir Defesas | high | Exclusao no Defender e regras de firewall na porta 4444 |
-| Reverter Defesas | medium | Reverte exclusoes e regras criadas pelo Diminuir Defesas |
-| Enum Admins | low | Usuario atual, membros do grupo Administradores e ultimo logon |
-| Criar Admin | high | Cria usuario `S3Injector` (senha `Senha123!`) como administrador local |
+| Payload | Funcao |
+|---------|--------|
+| Recon Basico | `whoami`, hostname e `ipconfig /all` |
+| Recon Defesas | Processos de EDR/AV, Zabbix Agent, Defender |
+| Recon Rede | Tabela ARP, conexoes ativas e rotas |
+| Exfil Wi-Fi | SSIDs salvos e senhas |
+| Enum Portas | Portas em escuta, scan do gateway e regras de firewall Allow em portas criticas |
+| Diag COM | Lista portas COM e dispositivos serial (filtra Bluetooth) |
+| Diminuir Defesas | Exclusao no Defender e regras de firewall na porta 4444 |
+| Reverter Defesas | Reverte exclusoes e regras criadas pelo Diminuir Defesas |
+| Enum Admins | Usuario atual, membros do grupo Administradores e ultimo logon |
+| Criar Admin | Cria usuario `S3Injector` (senha `Senha123!`) como administrador local |
 
 ### Custom Payloads
 
