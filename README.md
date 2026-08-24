@@ -172,7 +172,6 @@ frontend/
       StatusBar.tsx
       TriggerPanel.tsx
       LootDashboard.tsx
-docs/                  Documentacao e payloads de referencia
 embed_frontend.py      Script de conversao frontend para C arrays
 platformio.ini         Configuracao PlatformIO
 ```
