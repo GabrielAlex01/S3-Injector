@@ -150,7 +150,7 @@ DELAY 500
 STRING notepad
 ENTER
 DELAY 1000
-STRING Hello from S3-Injector
+STRING Bom Dia!
 ```
 
 ## Estrutura do Projeto
