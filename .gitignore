@@ -4,9 +4,6 @@
 # VS Code
 .vscode/
 
-# Claude Code
-.claude/
-
 # Node.js
 frontend/node_modules/
 
